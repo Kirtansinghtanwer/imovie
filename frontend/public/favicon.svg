@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="imvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2E3B"/>
+      <stop offset="100%" stop-color="#E50914"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#0B0B0F"/>
+  <rect x="4" y="4" width="40" height="40" rx="9" fill="#1C1C26" stroke="#2A2A38" stroke-width="1.5"/>
+  <path d="M12 16h24v18a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V16z" fill="url(#imvGrad)"/>
+  <path d="M12 14c0-2.2 1.8-4 4-4h16c2.2 0 4 1.8 4 4v2H12v-2z" fill="#B80710"/>
+  <polygon points="17,10 20,16 16,16 13,10" fill="#FFFFFF" opacity="0.8"/>
+  <polygon points="25,10 28,16 24,16 21,10" fill="#FFFFFF" opacity="0.8"/>
+  <polygon points="33,10 36,16 32,16 29,10" fill="#FFFFFF" opacity="0.8"/>
+  <polygon points="20,20 30,26 20,32" fill="#FFFFFF"/>
+</svg>
