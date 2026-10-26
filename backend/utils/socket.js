@@ -24,10 +24,6 @@ function initSocket(server, corsOptions) {
   return ioInstance;
 }
 
-function getSocketIO() {
-  return ioInstance;
-}
-
 function broadcastSeatUpdate(showId, seatData) {
   if (ioInstance && showId) {
     ioInstance.to(`show_${showId}`).emit("seats-updated", {
@@ -40,6 +36,5 @@ function broadcastSeatUpdate(showId, seatData) {
 
 module.exports = {
   initSocket,
-  getSocketIO,
   broadcastSeatUpdate
 };

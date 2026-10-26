@@ -4,7 +4,6 @@ import { Navbar } from '../components/common/Navbar';
 import { Footer } from '../components/common/Footer';
 import { DemoBanner } from '../components/common/DemoBanner';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const PublicLayout = () => {
   return (

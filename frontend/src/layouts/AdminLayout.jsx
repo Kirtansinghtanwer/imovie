@@ -5,7 +5,6 @@ import { AdminNavbar } from '../components/admin/AdminNavbar';
 import { DemoBanner } from '../components/common/DemoBanner';
 import { useAuth } from '../context/AuthContext';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const AdminLayout = () => {
   const { user, isAdmin, loading } = useAuth();
