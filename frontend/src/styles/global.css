@@ -1,6 +1,10 @@
 @import './variables.css';
 
-/* Global Reset & Base */
+/* ==========================================================================
+   Global Reset & Base
+   - Page background: Deep navy (#0D1B2A)
+   - Base text: Cream (#F4F1DE)
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -8,227 +12,1258 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  background-color: var(--color-deep-navy);
+  color: var(--color-cream);
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.5;
+  font-size: var(--font-size-base);
+  background-color: var(--color-deep-navy);
+  color: var(--color-cream);
+  line-height: 1.6;
+  letter-spacing: var(--letter-spacing-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* ==========================================================================
+   Accessibility, Visible Keyboard Focus & Reduced Motion
+   - Focus ring: Primary accent Sand (#D4C4A8)
+   - Reduced motion: disables animations and transitions
+   ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--border-focus) !important;
+  outline-offset: 3px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--border-focus) !important;
+  outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Custom Minimal Scrollbar
+   - Track: Deep navy
+   - Thumb: Slate blue at subtle opacity
+   ========================================================================== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--color-deep-navy);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a38;
+  background: rgba(var(--color-slate-blue-rgb), 0.55);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: var(--color-slate-blue);
 }
 
-/* Links & Typography */
+/* ==========================================================================
+   Typography & Hierarchy
+   - Calm, aesthetic feel: Light font weights for large headings
+   - Slightly wider letter spacing on large headings
+   - Generous whitespace margins
+   - Main text and headings: Cream (#F4F1DE)
+   - Secondary text: Cream at ~70% opacity
+   - Muted text: Cream at ~50% opacity
+   - Links: Secondary accent Sage (#778D7A)
+   - Avoid sage for small body text on dark slate
+   - No slate blue for text (WCAG AA compliance)
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: var(--color-cream) !important;
+  font-family: var(--font-sans);
+  margin-top: 0;
+}
+
+h1, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-light) !important;
+  letter-spacing: var(--letter-spacing-wide) !important;
+  line-height: 1.25;
+  margin-bottom: var(--space-4);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light) !important;
+  letter-spacing: var(--letter-spacing-wide) !important;
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-regular) !important;
+  letter-spacing: var(--letter-spacing-normal) !important;
+  line-height: 1.35;
+  margin-bottom: var(--space-3);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular) !important;
+  letter-spacing: var(--letter-spacing-normal) !important;
+  line-height: 1.4;
+  margin-bottom: var(--space-3);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium) !important;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium) !important;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+
+/* Small muted uppercase labels */
+.cinema-label,
+.label-uppercase {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-widest);
+  color: var(--text-muted) !important;
+  margin-bottom: var(--space-2);
+}
+
+/* Links: Sage (#778D7A) is the secondary accent */
 a {
-  color: inherit;
+  color: var(--color-sage);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
+
 a:hover {
-  color: var(--accent-primary);
+  color: var(--color-cream);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-primary);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* Specific text color classes */
+.text-white,
+.text-light {
+  color: var(--color-cream) !important;
+}
+
+.text-white-50,
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
 }
 
 .text-muted-custom {
   color: var(--text-secondary) !important;
 }
 
-.text-accent {
-  color: var(--accent-primary) !important;
+.text-accent,
+.text-highlight {
+  color: var(--color-sand) !important;
 }
 
+.text-success {
+  color: var(--color-sage) !important;
+}
+
+/* Prices: Sand (#D4C4A8) is the primary accent for prices */
+.price,
+.movie-card .text-danger.fw-bold,
+.text-danger.fs-3,
+.text-danger.fs-4,
+.text-danger.fs-5,
+strong.text-danger:not(.ticket-stub *):not(.alert *) {
+  color: var(--color-sand) !important;
+}
+
+/* Error text: Muted brick tone (#D46E60) reserved for errors/destructive actions */
+.text-danger,
+.invalid-feedback {
+  color: var(--color-brick) !important;
+}
+
+/* Background utilities */
+.bg-primary,
 .bg-primary-custom {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--color-deep-navy) !important;
 }
 
+.bg-secondary,
 .bg-secondary-custom {
-  background-color: var(--bg-secondary) !important;
+  background-color: var(--color-dark-slate) !important;
+}
+
+.bg-dark {
+  background-color: var(--color-dark-slate) !important;
 }
 
 .bg-card-custom {
-  background-color: var(--bg-card) !important;
-  border: 1px solid var(--border-subtle);
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid var(--border-subtle) !important;
 }
 
-/* Buttons */
-.btn-cinema {
-  background-color: var(--accent-primary);
-  color: #ffffff;
-  border: none;
-  font-weight: 600;
-  padding: 0.65rem 1.4rem;
-  border-radius: var(--radius-md);
+.border-secondary,
+.border-dark {
+  border-color: var(--border-subtle) !important;
+}
+
+.border-danger {
+  border-color: var(--status-danger-border) !important;
+}
+
+/* ==========================================================================
+   Buttons
+   - Fully rounded pill buttons
+   - Primary buttons: Sand (#D4C4A8) background with Deep Navy (#0D1B2A) text
+   - Secondary buttons: Slate Blue border, hover surface with Slate Blue
+   - Outline buttons: Sand border with Sand text
+   - Destructive buttons: Muted brick tone
+   ========================================================================== */
+.btn {
+  font-family: var(--font-sans);
+  border-radius: var(--radius-full) !important;
+  box-shadow: none !important;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-cinema,
+.btn-primary {
+  background-color: var(--color-sand) !important;
+  color: var(--color-deep-navy) !important;
+  border: 1px solid var(--color-sand) !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full) !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.35);
+  gap: var(--space-2);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  box-shadow: none !important;
   cursor: pointer;
+  text-decoration: none;
 }
-.btn-cinema:hover, .btn-cinema:focus {
-  background-color: var(--accent-primary-hover);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+
+.btn-cinema:hover,
+.btn-cinema:focus,
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--accent-primary-hover) !important;
+  border-color: var(--accent-primary-hover) !important;
+  color: var(--color-deep-navy) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
-.btn-cinema:active {
-  transform: translateY(0);
+
+.btn-cinema:active,
+.btn-primary:active {
+  background-color: var(--accent-primary-active) !important;
+  border-color: var(--accent-primary-active) !important;
+  color: var(--color-deep-navy) !important;
+  transform: none !important;
 }
-.btn-cinema:disabled {
-  background-color: #4a1518;
-  color: #8c8c95;
+
+.btn-cinema:disabled,
+.btn-cinema.disabled,
+.btn-primary:disabled {
+  background-color: rgba(var(--color-sand-rgb), 0.35) !important;
+  border-color: rgba(var(--color-sand-rgb), 0.35) !important;
+  color: rgba(var(--color-deep-navy-rgb), 0.50) !important;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.7;
 }
 
-.btn-cinema-secondary {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
-  border: 1px solid var(--border-strong);
-  font-weight: 500;
-  padding: 0.65rem 1.4rem;
-  border-radius: var(--radius-md);
+/* Ensure SVG icons in primary buttons match deep navy text */
+.btn-cinema svg,
+.btn-primary svg {
+  stroke: var(--color-deep-navy) !important;
+}
+
+.btn-cinema-secondary,
+.btn-secondary,
+.btn-outline-light,
+.btn-outline-secondary {
+  background-color: transparent !important;
+  color: var(--color-cream) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.50) !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full) !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  transition: all var(--transition-fast);
+  gap: var(--space-2);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  box-shadow: none !important;
   cursor: pointer;
+  text-decoration: none;
 }
-.btn-cinema-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.3);
+
+.btn-cinema-secondary:hover,
+.btn-cinema-secondary:focus,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-outline-light:hover,
+.btn-outline-light:focus,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.25) !important;
+  border-color: var(--color-slate-blue) !important;
+  color: var(--color-cream) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-cinema-secondary:active,
+.btn-secondary:active {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.35) !important;
+  transform: none !important;
+}
+
+.btn-cinema-secondary:disabled,
+.btn-cinema-secondary.disabled,
+.btn-secondary:disabled {
+  opacity: 0.45;
+  border-color: var(--border-disabled) !important;
+  color: var(--text-muted) !important;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 .btn-cinema-outline {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 1.5px solid var(--accent-primary);
-  font-weight: 600;
-  padding: 0.6rem 1.3rem;
-  border-radius: var(--radius-md);
+  background-color: transparent !important;
+  color: var(--color-sand) !important;
+  border: 1px solid var(--color-sand) !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full) !important;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: all var(--transition-fast);
-}
-.btn-cinema-outline:hover {
-  background-color: var(--accent-primary);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.3);
+  justify-content: center;
+  gap: var(--space-2);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  box-shadow: none !important;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-/* Movie Card Hover */
+.btn-cinema-outline:hover,
+.btn-cinema-outline:focus {
+  background-color: var(--accent-subtle) !important;
+  border-color: var(--color-sand) !important;
+  color: var(--color-sand) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-cinema-outline:active {
+  background-color: rgba(var(--color-sand-rgb), 0.25) !important;
+  transform: none !important;
+}
+
+/* Destructive / Error Buttons */
+.btn-danger {
+  background-color: var(--color-brick) !important;
+  border-color: var(--color-brick) !important;
+  color: var(--color-cream) !important;
+  border-radius: var(--radius-full) !important;
+  box-shadow: none !important;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #C45A4C !important;
+  border-color: #C45A4C !important;
+  color: var(--color-cream) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Success Buttons */
+.btn-success {
+  background-color: var(--color-sage) !important;
+  border-color: var(--color-sage) !important;
+  color: var(--color-deep-navy) !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: var(--font-weight-medium);
+  box-shadow: none !important;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: var(--accent-secondary-hover) !important;
+  border-color: var(--accent-secondary-hover) !important;
+  color: var(--color-deep-navy) !important;
+}
+
+/* ==========================================================================
+   Form Controls
+   - Dark slate (#1B263B) background
+   - Thin 1px slate blue border
+   - Focus ring: Sand (#D4C4A8)
+   ========================================================================== */
+.cinema-input,
+.cinema-select,
+.form-control,
+.form-select {
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.35) !important;
+  color: var(--color-cream) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.5 !important;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
+  box-shadow: none !important;
+}
+
+.cinema-input:focus,
+.cinema-select:focus,
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 2px rgba(var(--color-sand-rgb), 0.35) !important;
+  outline: none !important;
+}
+
+.cinema-input::placeholder,
+.form-control::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.cinema-input:disabled,
+.form-control:disabled,
+.form-select:disabled {
+  background-color: rgba(var(--color-dark-slate-rgb), 0.65) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border-disabled) !important;
+  opacity: 0.6;
+}
+
+.form-check-input {
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.45) !important;
+  box-shadow: none !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-sand) !important;
+  border-color: var(--color-sand) !important;
+}
+
+.form-check-input:focus {
+  border-color: var(--color-sand) !important;
+  box-shadow: 0 0 0 2px rgba(var(--color-sand-rgb), 0.35) !important;
+}
+
+/* ==========================================================================
+   Cards & Movie Card
+   - Background: Dark slate (#1B263B)
+   - Soft rounded corners: 12px
+   - Thin 1px slate blue borders replacing heavy shadows
+   ========================================================================== */
+.card,
 .movie-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.28) !important;
+  border-radius: var(--radius-card) !important;
   overflow: hidden;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
   display: flex;
   flex-direction: column;
-  height: 100%;
   position: relative;
+  box-shadow: none !important;
+  color: var(--color-cream);
 }
+
+.card:hover,
 .movie-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(229, 9, 20, 0.4);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 16px rgba(229, 9, 20, 0.15);
+  transform: none !important;
+  border-color: rgba(var(--color-slate-blue-rgb), 0.65) !important;
+  box-shadow: none !important;
+}
+
+.card-header,
+.card-footer {
+  background-color: var(--color-dark-slate) !important;
+  border-color: rgba(var(--color-slate-blue-rgb), 0.28) !important;
 }
 
 .movie-poster-wrapper {
   position: relative;
   aspect-ratio: 2 / 3;
   overflow: hidden;
-  background-color: #12121A;
+  background-color: var(--color-deep-navy);
 }
+
 .movie-poster-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.movie-card:hover .movie-poster-img {
-  transform: scale(1.05);
+  transition: opacity var(--transition-fast);
 }
 
-/* Badge Tags */
-.badge-custom {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
+.movie-card:hover .movie-poster-img {
+  opacity: 0.95;
+  transform: none !important;
+}
+
+/* ==========================================================================
+   Seats & Seat Legend
+   Seats stay distinguishable without relying on hue alone:
+   - Available: Slate blue with visible border, clear seat number
+   - Selected: Solid Sand, bold Navy text
+   - Occupied: Dark Slate dimmed look with cross mark (✕)
+   - Premium: Sage border (2px)
+   - VIP: Sand border (2px)
+   ========================================================================== */
+.seat-button {
+  width: var(--seat-size);
+  height: var(--seat-size);
+  border-radius: var(--seat-radius);
+  border: 1px solid var(--seat-available-border) !important;
+  background-color: var(--seat-available) !important;
+  color: var(--seat-available-text) !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-}
-.badge-accent {
-  background-color: var(--accent-primary);
-  color: #fff;
-}
-.badge-cinema-dark {
-  background-color: rgba(0, 0, 0, 0.65);
-  color: #fff;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-.badge-rating {
-  background-color: rgba(245, 158, 11, 0.15);
-  color: #F59E0B;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  user-select: none;
+  padding: 0;
+  box-shadow: none !important;
 }
 
-/* Form inputs */
-.cinema-input, .cinema-select {
-  background-color: var(--bg-input) !important;
+.seat-button:hover:not(:disabled) {
+  transform: none !important;
+  background-color: var(--seat-available-hover) !important;
+  border-color: var(--seat-available-hover-border) !important;
+  color: var(--color-cream) !important;
+}
+
+/* Selected Seat: Solid Sand */
+.seat-button.selected {
+  background-color: var(--seat-selected) !important;
+  border-color: var(--seat-selected-border) !important;
+  color: var(--seat-selected-text) !important;
+  font-weight: var(--font-weight-bold) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Occupied Seat: Dark Slate with dimmed look and cross mark */
+.seat-button.occupied {
+  background-color: var(--seat-occupied) !important;
+  border-color: var(--seat-occupied-border) !important;
+  color: var(--seat-occupied-text) !important;
+  cursor: not-allowed !important;
+  opacity: 0.55 !important;
+  position: relative !important;
+}
+
+.seat-button.occupied::after {
+  content: "✕" !important;
+  font-size: 0.70rem !important;
+  color: var(--seat-occupied-text) !important;
+  font-weight: bold !important;
+}
+
+/* Premium Seat: Sage border */
+.seat-button.premium {
+  border: 2px solid var(--seat-premium-border) !important;
+  background-color: var(--seat-premium-bg) !important;
+  color: var(--seat-premium-text) !important;
+}
+
+/* VIP Seat: Sand border */
+.seat-button.premium[title*="(VIP)"],
+.seat-button.premium[aria-label*="vip"],
+.seat-button.vip {
+  border: 2px solid var(--seat-vip-border) !important;
+  background-color: var(--seat-vip-bg) !important;
+  color: var(--seat-vip-text) !important;
+}
+
+/* Selected states override premium and VIP outlines */
+.seat-button.premium.selected,
+.seat-button.vip.selected,
+.seat-button.premium[title*="(VIP)"].selected {
+  background-color: var(--seat-selected) !important;
+  border-color: var(--seat-selected-border) !important;
+  color: var(--seat-selected-text) !important;
+}
+
+/* Seat Legend overrides matching new palette and tokens */
+span[style*="var(--seat-available)"] {
+  background-color: var(--seat-available) !important;
+  border: 1px solid var(--seat-available-border) !important;
+  border-radius: var(--seat-radius) !important;
+  box-shadow: none !important;
+}
+
+span[style*="var(--seat-selected)"] {
+  background-color: var(--seat-selected) !important;
+  border: 1px solid var(--seat-selected-border) !important;
+  border-radius: var(--seat-radius) !important;
+  box-shadow: none !important;
+}
+
+span[style*="var(--seat-occupied)"] {
+  background-color: var(--seat-occupied) !important;
+  border: 1px solid var(--seat-occupied-border) !important;
+  border-radius: var(--seat-radius) !important;
+  color: var(--seat-occupied-text) !important;
+  box-shadow: none !important;
+  opacity: 0.65 !important;
+}
+
+span[style*="var(--seat-premium)"],
+span[style*="rgba(245, 158, 11"] {
+  background-color: var(--seat-premium-bg) !important;
+  border: 2px solid var(--seat-premium-border) !important;
+  border-radius: var(--seat-radius) !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   Cinema Screen
+   - Subtle, clean bar with Slate blue
+   - Glow shadows removed completely
+   ========================================================================== */
+.cinema-screen-container {
+  perspective: none;
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.cinema-screen-bar {
+  height: 2px;
+  width: 70%;
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--color-slate-blue) !important;
+  border-radius: var(--radius-full);
+  box-shadow: none !important;
+  transform: none;
+}
+
+.cinema-screen-glow {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Status Badges
+   - Confirmed: Sage (#778D7A)
+   - Pending: Sand (#D4C4A8)
+   - Expired or Cancelled: Slate blue (#415A77)
+   - Errors & Destructive Actions: Muted brick tone (#D46E60)
+   ========================================================================== */
+.badge {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  border: 1px solid transparent;
+}
+
+.badge-custom {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Confirmed / Success Badge: Sage */
+.badge.bg-success,
+.badge-success,
+.badge-confirmed {
+  background-color: var(--status-success-bg) !important;
+  color: var(--status-success) !important;
+  border: 1px solid var(--status-success-border) !important;
+}
+
+/* Pending / Warning Badge: Sand */
+.badge.bg-warning,
+.badge-warning,
+.badge-pending {
+  background-color: var(--status-warning-bg) !important;
+  color: var(--status-warning) !important;
+  border: 1px solid var(--status-warning-border) !important;
+}
+
+/* Expired or Cancelled Badge: Slate blue with cream text */
+.badge.bg-secondary,
+.badge-secondary,
+.badge-cancelled,
+.badge-expired {
+  background-color: var(--status-info-bg) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid var(--status-info-border) !important;
+}
+
+.badge.bg-info,
+.badge-info {
+  background-color: var(--status-info-bg) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid var(--status-info-border) !important;
+}
+
+/* Error / Destructive Badges: Muted brick tone */
+.badge.bg-danger,
+.badge-danger,
+.badge-error {
+  background-color: var(--status-danger-bg) !important;
+  color: var(--status-danger) !important;
+  border: 1px solid var(--status-danger-border) !important;
+}
+
+/* Accent Badges (Coming soon, Highlights): Sand */
+.badge-accent {
+  background-color: var(--accent-subtle) !important;
+  color: var(--color-sand) !important;
+  border: 1px solid rgba(var(--color-sand-rgb), 0.35) !important;
+}
+
+/* Dark utility badge */
+.badge-cinema-dark,
+.badge.bg-dark,
+.badge-dark {
+  background-color: var(--color-dark-slate) !important;
+  color: var(--text-secondary) !important;
   border: 1px solid var(--border-subtle) !important;
-  color: var(--text-primary) !important;
+}
+
+/* Rating badge */
+.badge-rating {
+  background-color: var(--accent-subtle) !important;
+  color: var(--color-sand) !important;
+  border: 1px solid rgba(var(--color-sand-rgb), 0.35) !important;
+}
+
+/* Non-status decorative badges with bg-danger (admin tags, feature banners) */
+.admin-sidebar .badge.bg-danger,
+.admin-navbar .badge.bg-danger,
+header .badge.bg-danger,
+.home-page .badge.bg-danger {
+  background-color: var(--accent-subtle) !important;
+  color: var(--color-sand) !important;
+  border: 1px solid rgba(var(--color-sand-rgb), 0.35) !important;
+}
+
+/* ==========================================================================
+   Ticket Stub (Booking Confirmation Page)
+   Paper ticket: Cream (#F4F1DE) card with Deep Navy (#0D1B2A) text
+   ========================================================================== */
+.ticket-stub {
+  background-color: var(--color-cream) !important;
+  color: var(--color-deep-navy) !important;
+  border: 1.5px dashed rgba(var(--color-slate-blue-rgb), 0.45) !important;
+  border-radius: var(--radius-lg) !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+/* Ticket Notches: Deep Navy holes matching page background */
+.ticket-notch-left,
+.ticket-notch-right {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: var(--color-deep-navy) !important;
+  border: 1.5px dashed rgba(var(--color-slate-blue-rgb), 0.45) !important;
+  border-radius: var(--radius-full) !important;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.ticket-notch-left {
+  left: -11px;
+}
+
+.ticket-notch-right {
+  right: -11px;
+}
+
+/* Inside the Ticket Stub, text elements are Deep Navy */
+.ticket-stub h1,
+.ticket-stub h2,
+.ticket-stub h3,
+.ticket-stub h4,
+.ticket-stub h5,
+.ticket-stub h6,
+.ticket-stub strong,
+.ticket-stub .fw-bold,
+.ticket-stub .fw-extrabold,
+.ticket-stub .text-white {
+  color: var(--color-deep-navy) !important;
+}
+
+.ticket-stub p,
+.ticket-stub span.text-white-50,
+.ticket-stub small,
+.ticket-stub .text-white-50 {
+  color: rgba(var(--color-deep-navy-rgb), 0.72) !important;
+}
+
+/* Booking reference and prices inside ticket stub */
+.ticket-stub .text-danger,
+.ticket-stub strong.text-danger,
+.ticket-stub span.text-danger {
+  color: var(--color-deep-navy) !important;
+}
+
+/* Icons inside ticket stub */
+.ticket-stub svg:not([fill="#000000"]):not([fill="#FFFFFF"]) {
+  stroke: var(--color-deep-navy) !important;
+}
+
+/* Icon container in ticket header */
+.ticket-stub .bg-danger {
+  background-color: var(--color-dark-slate) !important;
+  color: var(--color-cream) !important;
+  border: none !important;
+}
+
+.ticket-stub .bg-danger svg {
+  stroke: var(--color-cream) !important;
+}
+
+/* Format tag inside ticket stub */
+.ticket-stub .badge.bg-danger {
+  background-color: var(--color-dark-slate) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.35) !important;
+}
+
+/* Ticket Details Strip inside paper ticket */
+.ticket-stub [style*="var(--bg-primary)"],
+.ticket-stub div.p-3.rounded-3.mb-4 {
+  background-color: rgba(var(--color-dark-slate-rgb), 0.07) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.25) !important;
+}
+
+.ticket-stub .border-bottom,
+.ticket-stub .border-top,
+.ticket-stub .border-end,
+.ticket-stub .border-secondary {
+  border-color: rgba(var(--color-slate-blue-rgb), 0.25) !important;
+}
+
+/* Verified Ticket badge on paper stub: accessible sage for cream background */
+.ticket-stub .badge.bg-success {
+  background-color: rgba(var(--color-sage-rgb), 0.22) !important;
+  color: #35533A !important;
+  border: 1px solid rgba(var(--color-sage-rgb), 0.50) !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   Tables
+   - Table headers: Dark slate (#1B263B)
+   - Table borders: Slate blue at lower opacity
+   - Hover surface: Slate blue at lower opacity
+   ========================================================================== */
+.table,
+.table-cinema {
+  color: var(--color-cream);
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  --bs-table-bg: var(--color-dark-slate);
+  --bs-table-color: var(--color-cream);
+  --bs-table-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-table-hover-bg: rgba(var(--color-slate-blue-rgb), 0.20);
+  --bs-table-hover-color: var(--color-cream);
+}
+
+.table th,
+.table-cinema th {
+  background-color: var(--color-dark-slate) !important;
+  color: var(--text-secondary) !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-widest);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid rgba(var(--color-slate-blue-rgb), 0.35) !important;
+  border-top: none;
+}
+
+.table td,
+.table-cinema td {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(var(--color-slate-blue-rgb), 0.22) !important;
+  border-top: none;
+  background-color: var(--color-dark-slate) !important;
+  color: var(--color-cream);
+  font-size: var(--font-size-sm);
+}
+
+.table tr:hover td,
+.table-cinema tr:hover td {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.20) !important;
+}
+
+/* ==========================================================================
+   Modals
+   - Modals use Dark slate (#1B263B)
+   - Soft rounded corners (14px)
+   - At most one very soft shadow exclusively for modals
+   ========================================================================== */
+.cinema-modal,
+.modal-content {
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.40) !important;
+  border-radius: var(--radius-lg) !important;
+  color: var(--color-cream) !important;
+  box-shadow: var(--shadow-modal) !important;
+}
+
+.cinema-modal .modal-header,
+.modal-header {
+  border-bottom: 1px solid rgba(var(--color-slate-blue-rgb), 0.28) !important;
+  padding: var(--space-4) var(--space-5) !important;
+}
+
+.cinema-modal .modal-footer,
+.modal-footer {
+  border-top: 1px solid rgba(var(--color-slate-blue-rgb), 0.28) !important;
+  padding: var(--space-4) var(--space-5) !important;
+}
+
+.cinema-modal .modal-body,
+.modal-body {
+  padding: var(--space-4) var(--space-5) !important;
+}
+
+/* ==========================================================================
+   Dropdowns
+   - Background: Dark slate
+   - Border: Slate blue
+   - Hover surface: Slate blue at lower opacity
+   ========================================================================== */
+.dropdown-menu {
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.40) !important;
   border-radius: var(--radius-md) !important;
-  padding: 0.65rem 1rem !important;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
+  padding: var(--space-1) !important;
+  box-shadow: none !important;
 }
-.cinema-input:focus, .cinema-select:focus {
-  border-color: var(--accent-primary) !important;
-  box-shadow: 0 0 0 3px var(--accent-glow) !important;
-  outline: none !important;
+
+.dropdown-item {
+  color: var(--text-secondary) !important;
+  font-size: var(--font-size-sm) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  border-radius: var(--radius-xs) !important;
+  transition: background-color var(--transition-fast), color var(--transition-fast) !important;
 }
-.cinema-input::placeholder {
-  color: var(--text-muted) !important;
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.25) !important;
+  color: var(--color-cream) !important;
 }
-.cinema-label {
-  font-size: 0.875rem;
-  font-weight: 500;
+
+.dropdown-divider {
+  border-top: 1px solid rgba(var(--color-slate-blue-rgb), 0.28) !important;
+  margin: var(--space-1) 0 !important;
+}
+
+/* ==========================================================================
+   Toast Notifications (React-Toastify overrides)
+   - Dark slate surface, no glow
+   ========================================================================== */
+.Toastify__toast {
+  background-color: var(--color-dark-slate) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.40) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-sm) !important;
+}
+
+.Toastify__toast--success {
+  border-left: 3px solid var(--color-sage) !important;
+}
+
+.Toastify__toast--error {
+  border-left: 3px solid var(--color-brick) !important;
+}
+
+.Toastify__toast--info {
+  border-left: 3px solid var(--color-slate-blue) !important;
+}
+
+.Toastify__toast--warning {
+  border-left: 3px solid var(--color-sand) !important;
+}
+
+.Toastify__close-button {
+  color: var(--text-secondary) !important;
+}
+
+/* ==========================================================================
+   Spinners & Pagination
+   - Overriding default Bootstrap blue & red
+   ========================================================================== */
+.spinner-border,
+.spinner-grow {
+  border-color: var(--color-sand) !important;
+  border-right-color: transparent !important;
+  color: var(--color-sand) !important;
+}
+
+.pagination .page-item .page-link {
+  background-color: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.30) !important;
+  color: var(--text-secondary) !important;
+  box-shadow: none !important;
+  border-radius: var(--radius-sm);
+  margin: 0 2px;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--color-sand) !important;
+  border-color: var(--color-sand) !important;
+  color: var(--color-deep-navy) !important;
+  font-weight: var(--font-weight-bold);
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.25) !important;
+  border-color: var(--color-slate-blue) !important;
+  color: var(--color-cream) !important;
+}
+
+/* ==========================================================================
+   Navbar & Footer
+   - Navbar and Footer use Dark slate (#1B263B)
+   - Active navigation item uses Sage (#778D7A)
+   ========================================================================== */
+.navbar,
+nav.navbar,
+header,
+.admin-navbar {
+  background-color: var(--color-dark-slate) !important;
+  border-bottom: 1px solid rgba(var(--color-slate-blue-rgb), 0.30) !important;
+  box-shadow: none !important;
+}
+
+footer,
+.footer {
+  background-color: var(--color-dark-slate) !important;
+  border-top: 1px solid rgba(var(--color-slate-blue-rgb), 0.30) !important;
+}
+
+/* Active navigation item: Sage */
+.nav-link.active,
+.navbar-nav .nav-link.active {
+  color: var(--color-sage) !important;
+}
+
+.nav-link {
   color: var(--text-secondary);
-  margin-bottom: 0.4rem;
+}
+
+.nav-link:hover {
+  color: var(--color-cream);
+}
+
+/* Brand Logo: Sand background with Deep Navy icon, Cream & Sand text */
+.navbar-brand div,
+.footer a div[style*="linear-gradient"],
+a[href="/"] div[style*="linear-gradient"] {
+  background: var(--color-sand) !important;
+  color: var(--color-deep-navy) !important;
+  box-shadow: none !important;
+}
+
+.navbar-brand div svg,
+.footer a div[style*="linear-gradient"] svg,
+a[href="/"] div[style*="linear-gradient"] svg {
+  stroke: var(--color-deep-navy) !important;
+}
+
+.navbar-brand span span,
+.footer a span span {
+  color: var(--color-cream) !important;
+}
+
+.navbar-brand span span:last-child,
+.footer a span span:last-child {
+  color: var(--color-sand) !important;
+}
+
+/* Demo Banner */
+aside[aria-label="Demo mode status"] {
+  background-color: var(--color-dark-slate) !important;
+  border-bottom: 1px solid rgba(var(--color-slate-blue-rgb), 0.30) !important;
+  color: var(--text-secondary) !important;
+}
+
+aside[aria-label="Demo mode status"] .badge {
+  background-color: var(--accent-subtle) !important;
+  color: var(--color-sand) !important;
+  border: 1px solid rgba(var(--color-sand-rgb), 0.35) !important;
+}
+
+aside[aria-label="Demo mode status"] .btn-outline-danger {
+  border-color: var(--color-sand) !important;
+  color: var(--color-sand) !important;
+}
+
+aside[aria-label="Demo mode status"] .btn-outline-danger:hover {
+  background-color: var(--accent-subtle) !important;
+}
+
+/* ==========================================================================
+   Admin Layout & Sidebar
+   - Dark slate surface
+   - Active navigation item uses Sage
+   ========================================================================== */
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--color-dark-slate) !important;
+  border-right: 1px solid rgba(var(--color-slate-blue-rgb), 0.30) !important;
+  min-height: 100vh;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+  margin: var(--space-1) var(--space-3);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.admin-nav-item:hover {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.20) !important;
+  color: var(--color-cream) !important;
+}
+
+.admin-nav-item.active {
+  background-color: rgba(var(--color-sage-rgb), 0.16) !important;
+  color: var(--color-sage) !important;
+  border-left: 3px solid var(--color-sage) !important;
+}
+
+/* ==========================================================================
+   Eliminate Glows, Shadows & Red/Amber Gradients Everywhere
+   - Heavy shadows replaced by thin 1px slate-blue borders
+   - All red/amber gradients removed
+   ========================================================================== */
+.shadow,
+.shadow-sm,
+.shadow-md,
+.shadow-lg,
+.shadow-2xl,
+[class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+/* Modals keep at most one very soft shadow */
+.cinema-modal,
+.modal-content {
+  box-shadow: var(--shadow-modal) !important;
+}
+
+/* Standardize card radii across bootstrap utility classes */
+.rounded-4 {
+  border-radius: var(--radius-card) !important;
+}
+
+.rounded-3 {
+  border-radius: var(--radius-card) !important;
+}
+
+/* Gradient overrides: remove linear/radial gradients entirely */
+[style*="linear-gradient(135deg, #FF2E3B"],
+[style*="linear-gradient(135deg, #ff2e3b"] {
+  background: var(--color-sand) !important;
+  color: var(--color-deep-navy) !important;
+  box-shadow: none !important;
+}
+
+[style*="linear-gradient(135deg, #1C1C26"] {
+  background: var(--color-dark-slate) !important;
+  border: 1px solid rgba(var(--color-slate-blue-rgb), 0.35) !important;
+}
+
+[style*="linear-gradient(to top, #E50914"],
+[style*="linear-gradient(to top, #e50914"] {
+  background: var(--color-sand) !important;
+  box-shadow: none !important;
+}
+
+[style*="linear-gradient(to top, rgba(0,0,0"] {
+  background: rgba(var(--color-dark-slate-rgb), 0.85) !important;
 }
 
 /* Hero Section */
@@ -239,223 +1274,70 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   background-size: cover;
   background-position: center top;
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   overflow: hidden;
+  background-color: var(--color-deep-navy) !important;
 }
+
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(11, 11, 15, 0.95) 0%,
-    rgba(11, 11, 15, 0.8) 50%,
-    rgba(11, 11, 15, 0.4) 100%
-  ),
-  linear-gradient(to top, rgba(11, 11, 15, 1) 0%, transparent 60%);
+  background: rgba(var(--color-deep-navy-rgb), 0.88) !important;
 }
 
-/* Cinema Curved Screen */
-.cinema-screen-container {
-  perspective: 600px;
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-.cinema-screen-bar {
-  height: 8px;
-  width: 80%;
-  max-width: 580px;
-  margin: 0 auto;
-  background: linear-gradient(90deg, transparent 0%, #E50914 30%, #FFFFFF 50%, #E50914 70%, transparent 100%);
-  border-radius: 50%;
-  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.6);
-  transform: rotateX(-30deg);
-}
-.cinema-screen-glow {
-  height: 40px;
-  width: 75%;
-  max-width: 520px;
-  margin: 0 auto;
-  background: radial-gradient(ellipse at center, rgba(229, 9, 20, 0.25) 0%, transparent 70%);
+/* Red/amber borders and backgrounds in inline styles */
+[style*="rgba(229, 9, 20"] {
+  border-color: rgba(var(--color-slate-blue-rgb), 0.35) !important;
 }
 
-/* Seat Grid */
-.seat-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  border: 1px solid var(--seat-available-border);
-  background-color: var(--seat-available);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  user-select: none;
-  padding: 0;
-}
-.seat-button:hover:not(:disabled) {
-  transform: scale(1.15);
-  background-color: #55556d;
-  border-color: #8888aa;
-}
-.seat-button.selected {
-  background-color: var(--seat-selected);
-  border-color: #ff4757;
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
-  transform: scale(1.1);
-}
-.seat-button.occupied {
-  background-color: var(--seat-occupied);
-  border-color: #2b2b3b;
-  color: #555566;
-  cursor: not-allowed;
-  opacity: 0.55;
-  position: relative;
-}
-.seat-button.occupied::after {
-  content: "✕";
-  font-size: 0.65rem;
-  color: #777788;
-}
-.seat-button.premium {
-  border-color: rgba(245, 158, 11, 0.6);
-  background-color: rgba(245, 158, 11, 0.15);
-}
-.seat-button.premium.selected {
-  background-color: var(--seat-selected);
-  border-color: #ff4757;
+div[style*="rgba(229, 9, 20, 0.1)"] {
+  background-color: rgba(var(--color-slate-blue-rgb), 0.15) !important;
+  border-color: rgba(var(--color-slate-blue-rgb), 0.30) !important;
 }
 
-/* Ticket Stub Style */
-.ticket-stub {
-  background: #181824;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-lg);
-  position: relative;
-  overflow: hidden;
-}
-.ticket-notch-left, .ticket-notch-right {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background-color: var(--bg-primary);
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.ticket-notch-left {
-  left: -12px;
-}
-.ticket-notch-right {
-  right: -12px;
+/* SVG icons override: amber stars become sand, red hearts become sand */
+svg polygon[fill="#F59E0B"],
+svg[color="#F59E0B"] polygon {
+  fill: var(--color-sand) !important;
+  stroke: var(--color-sand) !important;
 }
 
-/* Admin layout */
-.admin-sidebar {
-  width: 260px;
-  background-color: var(--bg-secondary);
-  border-right: 1px solid var(--border-subtle);
-  min-height: 100vh;
-}
-.admin-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  border-radius: var(--radius-md);
-  margin: 0.2rem 0.75rem;
-  transition: all var(--transition-fast);
-}
-.admin-nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-}
-.admin-nav-item.active {
-  background-color: rgba(229, 9, 20, 0.15);
-  color: var(--accent-primary);
-  border-left: 3px solid var(--accent-primary);
+svg polygon[stroke="#F59E0B"] {
+  stroke: var(--color-sand) !important;
 }
 
-/* Tables in dark theme */
-.table-cinema {
-  color: var(--text-primary);
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-}
-.table-cinema th {
-  background-color: var(--bg-secondary);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.9rem 1rem;
-  border-bottom: 1px solid var(--border-strong);
-}
-.table-cinema td {
-  padding: 1rem;
-  vertical-align: middle;
-  border-bottom: 1px solid var(--border-subtle);
-  background-color: var(--bg-card);
-}
-.table-cinema tr:hover td {
-  background-color: var(--bg-card-hover);
+svg path[fill="#E50914"],
+svg[color="#E50914"] path {
+  fill: var(--color-sand) !important;
+  stroke: var(--color-sand) !important;
 }
 
-/* Modal styling */
-.cinema-modal .modal-content {
-  background-color: var(--bg-modal);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-lg);
-}
-.cinema-modal .modal-header {
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 1.25rem 1.5rem;
-}
-.cinema-modal .modal-footer {
-  border-top: 1px solid var(--border-subtle);
-  padding: 1.25rem 1.5rem;
+svg path[stroke="#E50914"] {
+  stroke: var(--color-sand) !important;
 }
 
-/* Toastify dark overrides */
-.Toastify__toast {
-  background-color: var(--bg-card) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-strong) !important;
-  border-radius: var(--radius-md) !important;
-}
-.Toastify__toast--success {
-  border-left: 4px solid var(--status-success) !important;
-}
-.Toastify__toast--error {
-  border-left: 4px solid var(--status-danger) !important;
-}
-.Toastify__toast--info {
-  border-left: 4px solid var(--status-info) !important;
-}
-.Toastify__toast--warning {
-  border-left: 4px solid var(--status-warning) !important;
-}
-
-/* Print styling for tickets */
+/* ==========================================================================
+   Print Styling
+   ========================================================================== */
 @media print {
   body {
-    background: #fff !important;
-    color: #000 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
   }
-  .no-print, header, footer, .btn-cinema, .navbar {
+  .no-print, header, footer, .btn-cinema, .navbar, .admin-sidebar {
     display: none !important;
   }
   .ticket-stub {
-    border: 2px solid #000 !important;
-    background: #fff !important;
-    color: #000 !important;
+    border: 1.5px dashed #000000 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .ticket-stub * {
+    color: #000000 !important;
+  }
+  .ticket-notch-left,
+  .ticket-notch-right {
+    background-color: #ffffff !important;
+    border-color: #000000 !important;
   }
 }

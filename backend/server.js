@@ -8,6 +8,7 @@ const ApiResponse = require("./utils/apiResponse");
 const { notFoundHandler, errorHandler } = require("./middlewares/errorHandler");
 const { apiLimiter } = require("./middlewares/rateLimiter");
 const { initSocket } = require("./utils/socket");
+const BookingService = require("./services/bookingService");
 
 const app = express();
 let server = null;
@@ -27,6 +28,18 @@ app.use(cors(corsOptions));
 // Body Parsing with size limits
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+
+// Lightweight Development Request Logging
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on("finish", () => {
+    if (config.nodeEnv !== "test") {
+      const duration = Date.now() - start;
+      console.log(`[HTTP] ${req.method} ${req.originalUrl || req.url} -> ${res.statusCode} (${duration}ms)`);
+    }
+  });
+  next();
+});
 
 // General Rate Limiter
 app.use("/api", apiLimiter);
@@ -70,6 +83,7 @@ app.use(errorHandler);
 async function startServer() {
   try {
     await connectDB();
+    BookingService.startPeriodicCleanup();
     server = http.createServer(app);
     initSocket(server, corsOptions);
     const port = config.port;

@@ -1,48 +1,327 @@
 :root {
-  --bg-primary: #0B0B0F;
-  --bg-secondary: #15151D;
-  --bg-card: #1C1C26;
-  --bg-card-hover: #232330;
-  --bg-input: #12121A;
-  --bg-modal: #181822;
+  /* ==========================================================================
+     Exact Six-Color Base Palette Tokens
+     Defined once as base variables, with all other tokens derived from them
+     ========================================================================== */
+  --color-deep-navy: #0D1B2A;
+  --color-dark-slate: #1B263B;
+  --color-slate-blue: #415A77;
+  --color-sage: #778D7A;
+  --color-sand: #D4C4A8;
+  --color-cream: #F4F1DE;
 
-  --accent-primary: #E50914;
-  --accent-primary-hover: #F40612;
-  --accent-glow: rgba(229, 9, 20, 0.35);
+  /* RGB channels for opacity derivation */
+  --color-deep-navy-rgb: 13, 27, 42;
+  --color-dark-slate-rgb: 27, 38, 59;
+  --color-slate-blue-rgb: 65, 90, 119;
+  --color-sage-rgb: 119, 141, 122;
+  --color-sand-rgb: 212, 196, 168;
+  --color-cream-rgb: 244, 241, 222;
 
-  --text-primary: #FFFFFF;
-  --text-secondary: #A7A7B2;
-  --text-muted: #6B6B78;
-  --text-highlight: #F59E0B;
+  /* Muted brick tone reserved only for errors and destructive actions */
+  --color-brick: #D46E60;
+  --color-brick-rgb: 212, 110, 96;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --border-focus: rgba(229, 9, 20, 0.6);
+  /* ==========================================================================
+     Surface & Background Tokens
+     - Page background is deep navy (#0D1B2A)
+     - Cards, navbar, footer, inputs, modals and table headers use dark slate (#1B263B)
+     - Hover surfaces use slate blue at lower opacity
+     ========================================================================== */
+  --bg-primary: var(--color-deep-navy);
+  --bg-secondary: var(--color-dark-slate);
+  --bg-card: var(--color-dark-slate);
+  --bg-card-hover: rgba(var(--color-slate-blue-rgb), 0.22);
+  --bg-input: var(--color-dark-slate);
+  --bg-modal: var(--color-dark-slate);
+  --bg-dropdown: var(--color-dark-slate);
+  --bg-navbar: var(--color-dark-slate);
+  --bg-footer: var(--color-dark-slate);
 
-  --status-success: #22C55E;
-  --status-warning: #F59E0B;
-  --status-danger: #EF4444;
-  --status-info: #38BDF8;
+  /* ==========================================================================
+     Accent Tokens
+     - Primary accent: Sand (#D4C4A8) for main buttons (with navy text), prices,
+       selected seat, focus rings and active highlights
+     - Secondary accent: Sage (#778D7A) for links, active nav item, success states,
+       and confirmed-booking badges
+     ========================================================================== */
+  --accent-primary: var(--color-sand);
+  --accent-primary-hover: #C6B495;
+  --accent-primary-active: #B9A583;
+  --accent-subtle: rgba(var(--color-sand-rgb), 0.15);
+  --accent-glow: none;
 
-  --seat-available: #3A3A4C;
-  --seat-available-border: #52526A;
-  --seat-selected: #E50914;
-  --seat-occupied: #1E1E28;
-  --seat-premium: #F59E0B;
-  --seat-vip: #8B5CF6;
+  --accent-secondary: var(--color-sage);
+  --accent-secondary-hover: #677C6A;
+  --accent-secondary-subtle: rgba(var(--color-sage-rgb), 0.15);
 
+  /* ==========================================================================
+     Text & Typography Tokens (WCAG AA Compliant)
+     - Main text & headings: Cream (#F4F1DE)
+     - Secondary text: Cream at ~70% opacity
+     - Muted text: Cream at ~50% opacity
+     - Highlights & prices: Sand (#D4C4A8)
+     - Slate blue is never used for text
+     - Sage is avoided for small body text on dark slate
+     ========================================================================== */
+  --text-primary: var(--color-cream);
+  --text-secondary: rgba(var(--color-cream-rgb), 0.70);
+  --text-muted: rgba(var(--color-cream-rgb), 0.52);
+  --text-highlight: var(--color-sand);
+  --text-on-accent: var(--color-deep-navy);
+
+  /* ==========================================================================
+     Border & Divider Tokens
+     - Thin 1px slate blue borders replacing heavy shadows
+     - Lower opacity for subtle lines and dividers
+     ========================================================================== */
+  --border-subtle: rgba(var(--color-slate-blue-rgb), 0.28);
+  --border-medium: rgba(var(--color-slate-blue-rgb), 0.45);
+  --border-strong: rgba(var(--color-slate-blue-rgb), 0.65);
+  --border-focus: var(--color-sand);
+  --border-disabled: rgba(var(--color-slate-blue-rgb), 0.20);
+
+  /* ==========================================================================
+     Status Tokens
+     - Confirmed / Success: Sage (#778D7A)
+     - Pending / Warning: Sand (#D4C4A8)
+     - Expired / Cancelled / Info: Slate blue (#415A77)
+     - Errors & Destructive: Muted brick tone (#D46E60)
+     ========================================================================== */
+  --status-success: var(--color-sage);
+  --status-success-bg: rgba(var(--color-sage-rgb), 0.16);
+  --status-success-border: rgba(var(--color-sage-rgb), 0.40);
+
+  --status-warning: var(--color-sand);
+  --status-warning-bg: rgba(var(--color-sand-rgb), 0.16);
+  --status-warning-border: rgba(var(--color-sand-rgb), 0.40);
+
+  --status-danger: var(--color-brick);
+  --status-danger-bg: rgba(var(--color-brick-rgb), 0.16);
+  --status-danger-border: rgba(var(--color-brick-rgb), 0.40);
+
+  --status-info: var(--color-slate-blue);
+  --status-info-bg: rgba(var(--color-slate-blue-rgb), 0.22);
+  --status-info-border: rgba(var(--color-slate-blue-rgb), 0.45);
+
+  --status-confirmed: var(--color-sage);
+  --status-confirmed-bg: rgba(var(--color-sage-rgb), 0.16);
+  --status-confirmed-border: rgba(var(--color-sage-rgb), 0.40);
+
+  --status-pending: var(--color-sand);
+  --status-pending-bg: rgba(var(--color-sand-rgb), 0.16);
+  --status-pending-border: rgba(var(--color-sand-rgb), 0.40);
+
+  --status-cancelled: var(--color-slate-blue);
+  --status-cancelled-bg: rgba(var(--color-slate-blue-rgb), 0.22);
+  --status-cancelled-border: rgba(var(--color-slate-blue-rgb), 0.45);
+
+  /* ==========================================================================
+     Seat & Seat Legend Tokens (Variables only)
+     Distinguishable without relying on hue alone:
+     - Available: Slate blue with visible cream-tinted border
+     - Selected: Solid Sand with deep navy seat number
+     - Occupied: Dark Slate dimmed look with cross mark
+     - Premium: Sage border
+     - VIP: Sand border
+     ========================================================================== */
+  --seat-size: 32px;
+  --seat-radius: 6px;
+
+  --seat-available: var(--color-slate-blue);
+  --seat-available-border: rgba(var(--color-cream-rgb), 0.42);
+  --seat-available-hover: rgba(var(--color-slate-blue-rgb), 0.85);
+  --seat-available-hover-border: var(--color-cream);
+  --seat-available-text: var(--color-cream);
+
+  --seat-selected: var(--color-sand);
+  --seat-selected-border: var(--color-sand);
+  --seat-selected-text: var(--color-deep-navy);
+
+  --seat-occupied: var(--color-dark-slate);
+  --seat-occupied-border: rgba(var(--color-slate-blue-rgb), 0.25);
+  --seat-occupied-text: rgba(var(--color-cream-rgb), 0.35);
+
+  --seat-premium: var(--color-sage);
+  --seat-premium-border: var(--color-sage);
+  --seat-premium-bg: rgba(var(--color-sage-rgb), 0.16);
+  --seat-premium-text: var(--color-cream);
+
+  --seat-vip: var(--color-sand);
+  --seat-vip-border: var(--color-sand);
+  --seat-vip-bg: rgba(var(--color-sand-rgb), 0.16);
+  --seat-vip-text: var(--color-cream);
+
+  /* ==========================================================================
+     Corner Radii & Shapes
+     - Soft rounded corners (10px to 14px on cards)
+     - Fully rounded pill buttons
+     ========================================================================== */
+  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-lg: 14px;
+  --radius-xl: 14px;
+  --radius-card: 12px;
+  --radius-pill: 9999px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 20px rgba(229, 9, 20, 0.35);
+  /* ==========================================================================
+     Shadow Tokens
+     - Glow shadows removed entirely
+     - Heavy shadows replaced by thin 1px slate-blue borders
+     - At most one very soft shadow preserved exclusively for modals
+     ========================================================================== */
+  --shadow-none: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-glow: none;
+  --shadow-modal: 0 12px 36px rgba(0, 0, 0, 0.35);
 
+  /* ==========================================================================
+     Typography Tokens
+     - Light font weights for large headings with slightly wider letter spacing
+     - Small muted uppercase labels
+     ========================================================================== */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --transition-fast: 0.18s ease;
-  --transition-normal: 0.28s ease;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 600;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 0.9375rem;/* 15px */
+  --font-size-md: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+
+  --letter-spacing-tight: -0.015em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.03em;
+  --letter-spacing-wider: 0.06em;
+  --letter-spacing-widest: 0.08em;
+
+  /* ==========================================================================
+     Spacing Scale (Generous whitespace feel)
+     ========================================================================== */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* ==========================================================================
+     Transitions
+     ========================================================================== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+
+  /* ==========================================================================
+     Ticket Stub Tokens (Paper ticket: cream card with navy text)
+     ========================================================================== */
+  --ticket-bg: var(--color-cream);
+  --ticket-text: var(--color-deep-navy);
+  --ticket-text-secondary: rgba(var(--color-deep-navy-rgb), 0.72);
+  --ticket-border: rgba(var(--color-slate-blue-rgb), 0.45);
+  --ticket-notch-bg: var(--color-deep-navy);
+
+  /* ==========================================================================
+     Bootstrap Theme Overrides via Variables
+     Overrides buttons, forms, dropdowns, tables, modals, toasts, spinners, pagination
+     Eliminating default browser/Bootstrap blue (#0d6efd) and red (#dc3545)
+     ========================================================================== */
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-font-size: var(--font-size-base);
+  --bs-body-line-height: 1.6;
+  --bs-body-bg: var(--color-deep-navy);
+  --bs-body-color: var(--color-cream);
+  --bs-emphasis-color: var(--color-cream);
+  --bs-secondary-color: rgba(var(--color-cream-rgb), 0.70);
+  --bs-tertiary-color: rgba(var(--color-cream-rgb), 0.52);
+  --bs-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-border-color-translucent: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-radius-sm: var(--radius-xs);
+  --bs-border-radius-lg: var(--radius-md);
+  --bs-border-radius-xl: var(--radius-card);
+
+  --bs-primary: var(--color-sand);
+  --bs-primary-rgb: var(--color-sand-rgb);
+  --bs-secondary: var(--color-slate-blue);
+  --bs-secondary-rgb: var(--color-slate-blue-rgb);
+  --bs-success: var(--color-sage);
+  --bs-success-rgb: var(--color-sage-rgb);
+  --bs-info: var(--color-slate-blue);
+  --bs-info-rgb: var(--color-slate-blue-rgb);
+  --bs-warning: var(--color-sand);
+  --bs-warning-rgb: var(--color-sand-rgb);
+  --bs-danger: var(--color-brick);
+  --bs-danger-rgb: var(--color-brick-rgb);
+  --bs-dark: var(--color-dark-slate);
+  --bs-dark-rgb: var(--color-dark-slate-rgb);
+  --bs-light: var(--color-cream);
+  --bs-light-rgb: var(--color-cream-rgb);
+
+  --bs-link-color: var(--color-sage);
+  --bs-link-hover-color: var(--color-cream);
+
+  --bs-card-bg: var(--color-dark-slate);
+  --bs-card-color: var(--color-cream);
+  --bs-card-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-card-border-radius: var(--radius-card);
+
+  --bs-modal-bg: var(--color-dark-slate);
+  --bs-modal-color: var(--color-cream);
+  --bs-modal-border-color: rgba(var(--color-slate-blue-rgb), 0.40);
+  --bs-modal-border-radius: var(--radius-lg);
+  --bs-modal-header-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-modal-footer-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+
+  --bs-dropdown-bg: var(--color-dark-slate);
+  --bs-dropdown-color: var(--color-cream);
+  --bs-dropdown-border-color: rgba(var(--color-slate-blue-rgb), 0.40);
+  --bs-dropdown-border-radius: var(--radius-md);
+  --bs-dropdown-link-color: rgba(var(--color-cream-rgb), 0.75);
+  --bs-dropdown-link-hover-color: var(--color-cream);
+  --bs-dropdown-link-hover-bg: rgba(var(--color-slate-blue-rgb), 0.25);
+  --bs-dropdown-divider-bg: rgba(var(--color-slate-blue-rgb), 0.28);
+
+  --bs-table-bg: var(--color-dark-slate);
+  --bs-table-color: var(--color-cream);
+  --bs-table-border-color: rgba(var(--color-slate-blue-rgb), 0.28);
+  --bs-table-hover-bg: rgba(var(--color-slate-blue-rgb), 0.20);
+  --bs-table-hover-color: var(--color-cream);
+
+  --bs-focus-ring-color: rgba(var(--color-sand-rgb), 0.40);
+
+  --bs-pagination-bg: var(--color-dark-slate);
+  --bs-pagination-color: rgba(var(--color-cream-rgb), 0.75);
+  --bs-pagination-border-color: rgba(var(--color-slate-blue-rgb), 0.30);
+  --bs-pagination-hover-bg: rgba(var(--color-slate-blue-rgb), 0.25);
+  --bs-pagination-hover-color: var(--color-cream);
+  --bs-pagination-hover-border-color: var(--color-slate-blue);
+  --bs-pagination-active-bg: var(--color-sand);
+  --bs-pagination-active-color: var(--color-deep-navy);
+  --bs-pagination-active-border-color: var(--color-sand);
+  --bs-pagination-disabled-bg: var(--color-dark-slate);
+  --bs-pagination-disabled-color: rgba(var(--color-cream-rgb), 0.35);
+  --bs-pagination-disabled-border-color: rgba(var(--color-slate-blue-rgb), 0.18);
+
+  --bs-toast-bg: var(--color-dark-slate);
+  --bs-toast-color: var(--color-cream);
+  --bs-toast-border-color: rgba(var(--color-slate-blue-rgb), 0.40);
 }
